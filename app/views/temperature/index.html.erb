@@ -1,0 +1,11 @@
+<h1>Convert Temperature</h1>
+<%#= cowsay_path %>
+<%#= cowsay_submit_path %>
+<%= form_tag temperature_submit_path do %>
+<%= text_field_tag :sentence, @degree %>
+  <%= submit_tag "Convert" %>
+<% end %>
+
+<% if @degree %>
+  <p><%= @degree %>&deg;C converts to <%= @degreef %>&deg;F</p>
+  <% end %>
