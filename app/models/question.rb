@@ -3,7 +3,8 @@ class Question < ActiveRecord::Base
   # destroy will make Rails automatically delete associated answers before deleting the question
   # nullify will make Rails turn 'question_id' values of associated records to 'Null' before deleting the question.
   has_many :answers, dependent: :destroy
-
+  belongs_to :category
+  belongs_to :user 
 
   validates(:title,{presence: {message: "must be present!"}, uniqueness: true})
   validates :body,presence:   true,

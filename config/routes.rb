@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+ resources :users, only: [:new, :create]
+ resources :sessions, only: [:new, :create] do
+     delete :destroy, on: :collection
+ end
+
  resources :questions do
    #this will define a route that will be '/questions/search' and it will point to the questions controller 'search' action on that controller. on: :collection makes the route not have an 'id' or 'question_id' on it
    get :search, on: :collection
@@ -12,7 +17,7 @@ Rails.application.routes.draw do
 
    # it will make all the answers routes nested within 'questions' which means all the answers routes will be prepended with '/questions/:question_id'
    resources :answers, only: [:create, :destroy]
-   
+
  end
   # get "/questions/new" => "questions#new", as: :new_question
   #

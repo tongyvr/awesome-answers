@@ -1,5 +1,10 @@
 class HomeController < ApplicationController
   def index
+    # cookies.signed[:abc] = "Hello World"
+    # cookies.signed[:hey] = "Hello World"
+    # session[:abd] = "Hello World"
+    # session[:sun] = "Hello"
+
   end
 
   def greet

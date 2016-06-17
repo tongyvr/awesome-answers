@@ -1,4 +1,21 @@
 class User < ActiveRecord::Base
+#has_secure_password will give us functionalities needed for user authentication: it will add attribute accessors: password, password_confiramtion
+#it will add a validation for password presence and length of password (4..72)
+#if password_confiramtion is set, it will validate that it's the same as password
+# if will add handy methods for us to automatically hash the password to the password_digest field and compare a given password
+  has_secure_password
+  has_many :questions, dependent: :nullify
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true,
+                    uniqueness: true
+                    # format:
+
+
+  def full_name
+     "#{first_name} #{last_name}"
+  end
+
   def self.search(word)
      where("first_name ILIKE '%#{word}%' OR last_name ILIKE '%#{word}%' OR email ILIKE '%#{word}%'")
   end

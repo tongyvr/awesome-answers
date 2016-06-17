@@ -1,12 +1,14 @@
 class QuestionsController < ApplicationController
   before_action :find_question, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show, :index]
 
   def new
     @question = Question.new
   end
 
   def create
-    @question = Question.new question_params
+    @question       = Question.new question_params
+    @question.user = current_user
     # question = Question.new title: params[:question][:title],
     #                         body: params[:question][:body]
     if @question.save
@@ -21,7 +23,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question.increment!(:view_count)
-    @answer = Answer.new 
+    @answer = Answer.new
 
   end
 
@@ -48,8 +50,12 @@ class QuestionsController < ApplicationController
 
   private
 
+  def authenticate_user!
+    redirect_to new_session_path, alert: "Please sign in" unless user_signed_in?
+  end
+
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :category_id)
   end
 
   def find_question
