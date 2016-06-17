@@ -13,7 +13,6 @@ class QuestionsController < ApplicationController
     #                         body: params[:question][:body]
     if @question.save
       redirect_to questions_path(@question), notice: "Question created!"
-      # render json: params
     else
       flash[:alert] = "Question not created!"
 
